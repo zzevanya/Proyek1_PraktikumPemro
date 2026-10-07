@@ -1,12 +1,9 @@
-from typing import List, Optional
-
-
 class Mahasiswa:
     def __init__(self, nim: str, nama: str, no_hp: str):
         self._nim: str = nim
         self._nama: str = nama
         self._no_hp: str = no_hp
-        self._transaksi_aktif: List[str] = []
+        self._transaksi_aktif: list = []
 
     @property
     def nim(self) -> str:
@@ -29,7 +26,7 @@ class Mahasiswa:
         self._no_hp = no_hp_baru
 
     @property
-    def transaksi_aktif(self) -> List[str]:
+    def transaksi_aktif(self) -> list:
         return self._transaksi_aktif
 
     def ubah_data(self, nama: str, no_hp: str) -> None:
@@ -42,7 +39,7 @@ class Mahasiswa:
         if id_transaksi not in self._transaksi_aktif:
             self._transaksi_aktif.append(id_transaksi)
 
-    def hapus_trx_aktif(self, id_transaksi: Optional[str] = None) -> None:
+    def hapus_trx_aktif(self, id_transaksi = None) -> None:
         """
         + hapus_trx_aktif(): 
         Menghapus ID transaksi dari daftar transaksi aktif saat transaksi selesai/dikembalikan.
