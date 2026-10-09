@@ -13,9 +13,9 @@ Aplikasi ini dirancang untuk membantu pencatatan peminjaman peralatan secara ter
 
 | NIM | Nama | GitHub | Bagian |
 |---|---|---|---|
-| [NIM] | ZEFA | [@username](https://github.com/username) | MenuApp, mahasiswa_manager, TransaksiManager |
-| [NIM] | REA | [@username](https://github.com/username) | Mahasiswa, StatusTransaksi, Alat |
-| [NIM] | SANDI | [@username](https://github.com/username) | Kategori, ItemPinjam, Transaksi |
+| K3525078 | ZEFA | [@zzevanya] https://github.com/zzevanya | MenuApp, mahasiswa_manager, TransaksiManager |
+| K3525021 | REA | [@aurreadaffa17] https://github.com/aurreadaffa17 | Mahasiswa, StatusTransaksi, Alat |
+| K3525064 | SANDI | [@shandyeka491-stack] https://github.com/shandyeka491-stack | Kategori, ItemPinjam, Transaksi |
 | K3525028 | IMMEL | [@lmmelda] https://github.com/lmmelda | enumKondisi, AlatManager, LogAktivitas |
 
 ---
