@@ -8,14 +8,13 @@ class Alat:
         kode_alat: str,
         nama_alat: str,
         kategori: KategoriAlat,
-        kondisi: KondisiAlat = KondisiAlat.BAIK,
-        tersedia: bool = True
+        kondisi: KondisiAlat = KondisiAlat.BAIK
     ):
         self._kode_alat: str = kode_alat
         self._nama_alat: str = nama_alat
         self._kategori: KategoriAlat = kategori
         self._kondisi: KondisiAlat = kondisi
-        self._tersedia: bool = tersedia
+        self._sedang_dipinjam: bool = False
 
     @property
     def kode_alat(self) -> str:
@@ -47,36 +46,39 @@ class Alat:
 
     @property
     def tersedia(self) -> bool:
-        return self._tersedia
-
-    @tersedia.setter
-    def tersedia(self, value: bool):
-        self._tersedia = value
+        """Dihitung dinamis: Tersedia hanya jika tidak sedang dipinjam dan tidak rusak."""
+        return (not self._sedang_dipinjam) and (not self.is_rusak())
 
     def is_tersedia(self) -> bool:
-        """+ is_tersedia(): bool: Mengecek apakah alat siap dipinjam."""
-        return self._tersedia and not self.is_rusak()
+        """+ is_tersedia(): bool: Mengembalikan hasil evaluasi ketersediaan dinamis."""
+        return self.tersedia
 
     def tandai_dipinjam(self) -> None:
-        """+ tandai_dipinjam(): Mengubah ketersediaan alat menjadi sedang dipinjam (False)."""
-        self._tersedia = False
+        """+ tandai_dipinjam(): Menandai alat sedang dipinjam."""
+        self._sedang_dipinjam = True
 
     def terima_kembali(self, kondisi: KondisiAlat) -> None:
-        """+ terima_kembali(kondisi): Menerima alat kembali dan memperbarui kondisi fisiknya."""
+        """+ terima_kembali(kondisi): Mengembalikan status pinjam dan memperbarui kondisi fisik."""
+        self._sedang_dipinjam = False
         self._kondisi = kondisi
-        self._tersedia = (kondisi != KondisiAlat.RUSAK_BERAT)
 
     def is_rusak(self) -> bool:
-        """+ is_rusak(): bool: Mengecek apakah alat dalam kondisi rusak ringan atau berat."""
+        """+ is_rusak(): bool: Mengecek apakah kondisi alat rusak (ringan atau berat)."""
         return self._kondisi in (KondisiAlat.RUSAK_RINGAN, KondisiAlat.RUSAK_BERAT)
 
     def ubah_data(self, nama: str, kat: KategoriAlat) -> None:
-        """+ ubah_data(nama, kat): Mengubah nama dan kategori alat."""
+        """+ ubah_data(nama, kat): Memperbarui nama dan kategori alat."""
         self._nama_alat = nama
         self._kategori = kat
 
     def __str__(self) -> str:
-        status_pinjam = "Tersedia" if self._tersedia else "Dipinjam"
+        if self._sedang_dipinjam:
+            status_teks = "Dipinjam"
+        elif self.is_rusak():
+            status_teks = "Tidak Tersedia (Rusak)"
+        else:
+            status_teks = "Tersedia"
+
         kat_val = self._kategori.value if isinstance(self._kategori, KategoriAlat) else str(self._kategori)
         kon_val = self._kondisi.value if isinstance(self._kondisi, KondisiAlat) else str(self._kondisi)
-        return f"[{self._kode_alat}] {self._nama_alat} | Kategori: {kat_val} | Kondisi: {kon_val} | Status: {status_pinjam}"
+        return f"[{self._kode_alat}] {self._nama_alat} | Kategori: {kat_val} | Kondisi: {kon_val} | Status: {status_teks}"
