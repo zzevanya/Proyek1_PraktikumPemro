@@ -17,32 +17,37 @@ class TransaksiManager:
         
     def buat_transaksi(self, id_trx: str, nim: str, daftar_kode_alat: list[str]) -> bool:
         mhs = self._mahasiswa_manager.get_mahasiswa(nim)
-        
-        if not mhs or mhs.jumlah_trx_aktif() >= self.MAKS_TRANSAKSI:
+        if not mhs or not mhs.boleh_pinjam():
             return False
-        
-        trx = Transaksi(id_trx, mhs)
-        
+
+        if not id_trx.strip() or id_trx.strip() in self._data_transaksi:
+            return False
+
+        daftar_alat = []
         for kode in daftar_kode_alat:
-            alat = self._alat_manager._data_alat.get(kode)
-            if alat and alat.is_tersedia():
-                trx.tambah_item(alat)
-                
-        if trx._daftar_item:
-            self._data_transaksi[id_trx] = trx
-            mhs.tambah_trx_aktif(id_trx)
-            if self._logger:
-                self._logger.catat(f"Buat Transaksi: ID {id_trx} oleh NIM {nim}")
-                return True
-        return False
+            alat = self._alat_manager.get_alat_by_kode(kode)
+            if alat is None or not alat.is_tersedia() or alat in daftar_alat:
+                return False
+            daftar_alat.append(alat)
+
+        if not daftar_alat:
+            return False
+
+        try:
+            trx = Transaksi(id_trx, mhs, daftar_alat)
+        except ValueError:
+            return False
+
+        self._data_transaksi[trx.id_transaksi] = trx
+        if self._logger:
+            self._logger.catat(f"Buat Transaksi: ID {trx.id_transaksi} oleh NIM {nim}")
+        return True
+    
     def proses_pengembalian(self, id_trx: str, kode_alat: str, kondsi: KondisiAlat) -> None:
         trx = self._data_transaksi.get(id_trx)
         
         if trx:
             trx.kembalikan_item(kode_alat, kondsi)
-            
-            if not trx.is_aktif():
-                trx._mahasiswa.hapus_trx_aktif(id_trx)
                 
             if self._logger:
                 self._logger.catat(f"Pengembalian Alat: {kode_alat} pada Transaksi {id_trx}")

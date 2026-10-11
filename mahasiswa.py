@@ -1,10 +1,13 @@
 from enumsStatus import StatusTransaksi
 
 class Mahasiswa:
+    MAKS_TRANSAKSI = 2
+    
     def __init__(self, nim: str, nama: str, no_hp: str):
         self._nim: str = nim
         self._nama: str = nama
         self._no_hp: str = no_hp
+        self._trx_aktif : list[str] = []
 
     @property
     def nim(self) -> str:
@@ -32,7 +35,18 @@ class Mahasiswa:
         self._no_hp = no_hp
         
     def jumlah_trx_aktif(self) -> int:
-            return 0
+        return len(self._trx_aktif)
 
+    def boleh_pinjam(self) -> bool:
+        return self.jumlah_trx_aktif() < self.MAKS_TRANSAKSI
+
+    def tambah_trx_aktif(self, id_trx: str) -> None:
+        if id_trx not in self._trx_aktif:
+            self._trx_aktif.append(id_trx)
+
+    def hapus_trx_aktif(self, id_trx: str) -> None:
+        if id_trx in self._trx_aktif:
+            self._trx_aktif.remove(id_trx)
+    
     def __str__(self) -> str:
         return f"[{self._nim}] {self._nama} | HP: {self._no_hp}"

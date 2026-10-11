@@ -121,7 +121,7 @@ class MenuApp:
                 nama = input("Nama Alat: ")
                 id_kat = input("ID Kategori: ")
                 
-                kategori_obj = self._alat_manager.get_kategori(id_kategori)
+                kategori_obj = self._alat_manager.get_kategori(id_kat)
                 
                 if not kategori_obj:
                     print("Gagal: ID Kategori tidak ditemukan! Silakan tambah kategori terlebih dahulu.")
@@ -136,6 +136,7 @@ class MenuApp:
                 kode = input("Masukkan Kode Alat yang akan diedit: ")
                 nama = input("Nama Baru: ")
                 id_kat = input("ID Kategori Baru: ")
+                kategori_obj = self._alat_manager.get_kategori(id_kat)
                 if self._alat_manager.edit_alat(kode, nama, id_kat):
                     print("Data alat berhasil diubah!")
                 else:
