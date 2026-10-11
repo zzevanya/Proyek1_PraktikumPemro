@@ -120,16 +120,29 @@ Menu utama dirancang untuk menyediakan fitur berikut:
 
 ```text
 1. Kelola Data Mahasiswa
+    1.1. Tambah Data Mahasiswa
+    1.2. Edit Data Mahasiswa
+    1.3. Hapus Data Mahasiswa
+    1.4. Cari Data Mahasiswa
 2. Kelola Data Alat
-3. Buat Transaksi Peminjaman
-4. Tampilkan Transaksi
-5. Proses Pengembalian Alat
-6. Cari Transaksi Berdasarkan Mahasiswa
-7. Tampilkan Alat Tersedia
-8. Tampilkan Alat yang Sedang Dipinjam
-9. Tampilkan Alat Rusak
-10. Tampilkan Riwayat Peminjaman Mahasiswa
-11. Keluar
+    2.1. Tambah Kategori
+    2.2. Tambah Data Alat
+    2.3. Edit Data Alat
+    2.4. Hapus Data Alat
+    2.5. Cari Data Alat
+    2.6. Lihat Alat Tersedia
+    2.7. Lihat Alat Dipinjam
+    2.8. Lihat Alat Rusak
+    2.9. Ubah Kondisi Alat
+3. Kelola Transaksi Peminjaman
+    3.1. Buat Transaksi Peminjaman
+    3.2. Proses Pengembalian Alat
+    3.3. Tampilkan Semua Transaksi
+    3.4. Cari Transaksi
+    3.5. Cek Status Transaksi Aktif Mahasiswa
+    3.6. Lihat Daftar Alat yang Dipinjam
+4. Kelola Laporan & Log Aktivitas
+5. Keluar
 ```
 
 ---
