@@ -120,10 +120,17 @@ class MenuApp:
                 kode = input("Kode Alat: ")
                 nama = input("Nama Alat: ")
                 id_kat = input("ID Kategori: ")
-                if self._alat_manager.tambah_alat(kode, nama, id_kat):
-                    print("Alat berhasil ditambahkan!")
+                
+                kategori_obj = self._alat_manager.get_kategori(id_kategori)
+                
+                if not kategori_obj:
+                    print("Gagal: ID Kategori tidak ditemukan! Silakan tambah kategori terlebih dahulu.")
                 else:
-                    print("Gagal menambahkan alat (Kategori tidak ditemukan / Kode duplikat).")
+                    berhasil = self._alat_manager.tambah_alat(kode, nama, kategori_obj)
+                    if berhasil:
+                        print("Alat berhasil ditambahkan!")
+                    else:
+                        print("Gagal menambahkan alat (Kode duplikat atau input tidak valid).")
 
             elif pilihan == "3":
                 kode = input("Masukkan Kode Alat yang akan diedit: ")

@@ -98,6 +98,9 @@ class AlatManager:
 
     def get_alat_by_kode(self, kode_alat):
         return self.cari_alat(kode_alat)
+    
+    def get_kategori(self, id_kategori: str):
+        return self._data_kategori.get(id_kategori, None)
 
     def cari_alat_fleksibel(self, keyword):
         keyword = keyword.strip().lower()
@@ -110,7 +113,7 @@ class AlatManager:
             if (
                 keyword in alat.kode_alat.lower()
                 or keyword in alat.nama_alat.lower()
-                or keyword in alat.kategori.value.lower()
+                or keyword in alat.kategori.nama_kategori.lower()
             ):
                 hasil.append(alat)
 
