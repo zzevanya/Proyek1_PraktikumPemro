@@ -1,4 +1,3 @@
-
 from alat import Alat
 from enumKondisi import KondisiAlat
 from Kategori import Kategori
@@ -84,6 +83,9 @@ class AlatManager:
             return False
 
         if not alat.tersedia and not alat.is_rusak():
+            return False
+        
+        if getattr(alat, "_sedang_dipinjam", False):
             return False
 
         del self._data_alat[kode_alat]
