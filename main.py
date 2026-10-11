@@ -53,10 +53,13 @@ class MenuApp:
         
         if pilihan == "1":
             nim = input("NIM: ")
-            nama= input("Nama: ")
+            nama = input("Nama: ")
             no_hp = input("No HP: ")
-            self._mahasiswa_manager.tambah_mahasiswa(nim, nama, no_hp)
-            print("Mahasiswa berhasil ditambahkan!")
+            berhasil = self._mahasiswa_manager.tambah_mahasiswa(nim, nama, no_hp)
+            if berhasil:
+                print("Mahasiswa berhasil ditambahkan!")
+            else:
+                print("Gagal menambahkan mahasiswa (NIM duplikat atau input kosong).")
             
         elif pilihan == "2":
             nim = input("Masukkan NIM Mahasiswa yang ingin diedit: ")
@@ -72,11 +75,17 @@ class MenuApp:
         elif pilihan == "3":
             nim = input("Masukkan NIM Mahasiswa yang ingin dihapus: ")
             mhs = self._mahasiswa_manager.get_mahasiswa(nim)
-            if mhs:
-                self._mahasiswa_manager.hapus_mahasiswa(nim)
-                print("Mahasiswa berhasil dihapus!")
+
+            if mhs is None:
+                print("Mahasiswa dengan NIM tersebut tidak ditemukan.")
             else:
-                print("Mahasiswa tidak dengan NIM tersebut tidak ditemukan.")
+                berhasil = self._mahasiswa_manager.hapus_mahasiswa(nim)
+                if berhasil:
+                    print("Mahasiswa berhasil dihapus!")
+                elif mhs.jumlah_trx_aktif() > 0:
+                    print("Penghapusan ditolak! Mahasiswa masih memiliki transaksi aktif.")
+                else:
+                    print("Mahasiswa gagal dihapus.")
                 
         elif pilihan == "4":
             keyword = input("Masukkan kata kunci (Nama/NIM): ")
@@ -136,11 +145,11 @@ class MenuApp:
                 kode = input("Masukkan Kode Alat yang akan diedit: ")
                 nama = input("Nama Baru: ")
                 id_kat = input("ID Kategori Baru: ")
-                kategori_obj = self._alat_manager.get_kategori(id_kat)
-                if self._alat_manager.edit_alat(kode, nama, id_kat):
+                kategori_baru = self._alat_manager.get_kategori(id_kat)
+                if kategori_baru and self._alat_manager.edit_alat(kode, nama, kategori_baru):
                     print("Data alat berhasil diubah!")
                 else:
-                    print("Alat atau Kategori tidak ditemukan.")
+                    print("Alat atau kategori tidak ditemukan, atau nama tidak valid.")
 
             elif pilihan == "4":
                 kode = input("Masukkan Kode Alat yang akan dihapus: ")
@@ -229,8 +238,11 @@ class MenuApp:
                 elif opt == "3":
                     kondisi = KondisiAlat.RUSAK_BERAT
 
-                self._transaksi_manager.proses_pengembalian(id_trx, kode_alat, kondisi)
-                print("Pengembalian alat selesai diproses!")
+                berhasil = self._transaksi_manager.proses_pengembalian(id_trx, kode_alat, kondisi)
+                if berhasil:
+                    print("Pengembalian alat berhasil diproses!")
+                else:
+                    print("Pengembalian gagal. Periksa ID transaksi, kode alat, atau status pengembaliannya.")
 
             elif pilihan == "3":
                 daftar_trx = self._transaksi_manager.tampilkan_transaksi()
