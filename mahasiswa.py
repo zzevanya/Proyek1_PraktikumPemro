@@ -1,3 +1,5 @@
+from enumstatus import StatusTransaksi
+
 class Mahasiswa:
     def __init__(self, nim: str, nama: str, no_hp: str):
         self._nim: str = nim
@@ -28,6 +30,9 @@ class Mahasiswa:
         """+ ubah_data(nama, no_hp): Mengubah nama dan nomor handphone mahasiswa."""
         self._nama = nama
         self._no_hp = no_hp
+        
+    def jumlah_trx_aktif(self) -> int:
+            return sum(1 for trx in self.daftar_transaksi if trx.status == StatusTransaksi.DIPINJAM)
 
     def __str__(self) -> str:
         return f"[{self._nim}] {self._nama} | HP: {self._no_hp}"
