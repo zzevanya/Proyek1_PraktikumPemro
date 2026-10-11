@@ -41,20 +41,14 @@ class AlatManager:
         return True
     
     def tambah_kategori(self, id_kategori: str, nama_kategori: str) -> bool:
-        if not id_kategori.strip() or not nama_kategori.strip():
-            if self._logger:
-                self._logger.catat("Gagal menambah kategori: ID atau Nama Kategori kosong.")
-                return False
-            
         if id_kategori in self._data_kategori:
-            if self._logger:
-                self._logger.catat(f"Gagal menambah kategori: ID {id_kategori} sudah terdaftar.")
-
-        kategori_baru = KategoriAlat(id_kategori, nama_kategori)
+            return False
+        
+        kategori_baru = Kategori(id_kategori, nama_kategori)
         self._data_kategori[id_kategori] = kategori_baru
         
         if self._logger:
-            self._logger.catat(f"Kategori {nama_kategori} {id_kategori} berhasil ditambahkan.")
+            self._logger.catat(f"Kategori {nama_kategori} '{id_kategori}' berhasil ditambahkan.")
         return True
 
     def edit_alat(self, kode_alat, nama_baru, kategori_baru):
