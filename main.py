@@ -90,9 +90,7 @@ class MenuApp:
                 print("Tidak ada mahasiswa yang cocok.")
                 
         elif pilihan == "0":
-            print("Kembali ke Menu Utama....")
             return
-        
         else:
             print("Pilihan tidak valid, silahkan coba lagi.")
             
@@ -103,12 +101,11 @@ class MenuApp:
             print("2. Tambah Alat")
             print("3. Edit Alat")
             print("4. Hapus Alat")
-            print("5. Cari Alat (by Kode)")
-            print("6. Cari Alat Fleksibel (by Keyword)")
-            print("7. Lihat Alat Tersedia")
-            print("8. Lihat Alat Dipinjam")
-            print("9. Lihat Alat Rusak")
-            print("10. Ubah Kondisi Alat")
+            print("5. Cari Alat (Kode/ Nama/ Kategori)")
+            print("6. Lihat Alat Tersedia")
+            print("7. Lihat Alat Dipinjam")
+            print("8. Lihat Alat Rusak")
+            print("9. Ubah Kondisi Alat")
             print("0. Kembali ke Menu Utama")
             
             pilihan = input("Pilih menu (0-10): ")
@@ -145,7 +142,7 @@ class MenuApp:
                     print("Alat tidak ditemukan.")
 
             elif pilihan == "5":
-                kode = input("Masukkan Kode Alat: ")
+                kode = input("Masukkan Kata Kunci: ")
                 alat = self._alat_manager.get_alat_by_kode(kode)
                 if alat:
                     print(f"- [{alat.kode_alat}] {alat.nama_alat} | Kategori: {alat._kategori.nama_kategori}")
@@ -153,27 +150,21 @@ class MenuApp:
                     print("Alat tidak ditemukan.")
 
             elif pilihan == "6":
-                kw = input("Masukkan Kata Kunci: ")
-                hasil = self._alat_manager.cari_alat_fleksibel(kw)
-                for a in hasil:
-                    print(f"- [{a.kode_alat}] {a.nama_alat} | Kategori: {a._kategori.nama_kategori}")
-
-            elif pilihan == "7":
                 print("\n-- Daftar Alat Tersedia --")
                 for a in self._alat_manager.tampilkan_alat_tersedia():
                     print(f"- [{a.kode_alat}] {a.nama_alat}")
 
-            elif pilihan == "8":
+            elif pilihan == "7":
                 print("\n-- Daftar Alat Dipinjam --")
                 for a in self._alat_manager.tampilkan_alat_dipinjam():
                     print(f"- [{a.kode_alat}] {a.nama_alat}")
 
-            elif pilihan == "9":
+            elif pilihan == "8":
                 print("\n-- Daftar Alat Rusak --")
                 for a in self._alat_manager.tampilkan_alat_rusak():
                     print(f"- [{a.kode_alat}] {a.nama_alat} | Kondisi: {a._kondisi.value}")
 
-            elif pilihan == "10":
+            elif pilihan == "9":
                 kode = input("Masukkan Kode Alat: ")
                 print("Pilih Kondisi Baru: 1. BAIK | 2. RUSAK_RINGAN | 3. RUSAK_BERAT")
                 opt = input("Pilih (1-3): ")
