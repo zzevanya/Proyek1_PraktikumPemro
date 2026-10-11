@@ -111,9 +111,9 @@ class MenuApp:
             pilihan = input("Pilih menu (0-10): ")
             
             if pilihan == "1":
-                id_kat = input("ID Kategori: ")
-                nama_kat = input("Nama Kategori: ")
-                self._alat_manager.tambah_kategori(id_kat, nama_kat)
+                id_kategori = input("ID Kategori: ")
+                nama_kategori = input("Nama Kategori: ")
+                self._alat_manager.tambah_kategori(id_kategori, nama_kategori)
                 print("Kategori berhasil ditambahkan!")
 
             elif pilihan == "2":
