@@ -1,7 +1,7 @@
 
 from alat import Alat
 from enumKondisi import KondisiAlat
-from Kategori import KategoriAlat
+from Kategori import Kategori
 from logAktivitas import LogAktivitas
 
 
@@ -15,7 +15,7 @@ class AlatManager:
         self,
         kode_alat: str,
         nama_alat: str,
-        kategori: KategoriAlat,
+        kategori: Kategori,
         kondisi: KondisiAlat = KondisiAlat.BAIK
     ):
         if kode_alat in self._data_alat:
@@ -24,7 +24,7 @@ class AlatManager:
         if not kode_alat.strip() or not nama_alat.strip():
             return False
 
-        if not isinstance(kategori, KategoriAlat):
+        if not isinstance(kategori, Kategori):
             return False
 
         if not isinstance(kondisi, KondisiAlat):
@@ -60,7 +60,7 @@ class AlatManager:
         if not nama_baru.strip():
             return False
 
-        if not isinstance(kategori_baru, KategoriAlat):
+        if not isinstance(kategori_baru, Kategori):
             return False
 
         alat.ubah_data(nama_baru, kategori_baru)
@@ -117,7 +117,7 @@ class AlatManager:
         return hasil
 
     def tampilkan_kategori_alat(self):
-        return list(KategoriAlat)
+        return list(Kategori)
 
     def cari_alat_berdasarkan_kategori(self, kategori):
         hasil = []
