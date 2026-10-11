@@ -1,5 +1,5 @@
 from enumKondisi import KondisiAlat
-from Kategori import KategoriAlat
+from Kategori import Kategori
 
 
 class Alat:
@@ -7,12 +7,12 @@ class Alat:
         self,
         kode_alat: str,
         nama_alat: str,
-        kategori: KategoriAlat,
+        kategori: Kategori,
         kondisi: KondisiAlat = KondisiAlat.BAIK
     ):
         self._kode_alat: str = kode_alat
         self._nama_alat: str = nama_alat
-        self._kategori: KategoriAlat = kategori
+        self._kategori: Kategori= kategori
         self._kondisi: KondisiAlat = kondisi
         self._sedang_dipinjam: bool = False
 
@@ -29,11 +29,11 @@ class Alat:
         self._nama_alat = value
 
     @property
-    def kategori(self) -> KategoriAlat:
+    def kategori(self) -> Kategori:
         return self._kategori
 
     @kategori.setter
-    def kategori(self, value: KategoriAlat):
+    def kategori(self, value: Kategori):
         self._kategori = value
 
     @property
@@ -66,7 +66,7 @@ class Alat:
         """+ is_rusak(): bool: Mengecek apakah kondisi alat rusak (ringan atau berat)."""
         return self._kondisi in (KondisiAlat.RUSAK_RINGAN, KondisiAlat.RUSAK_BERAT)
 
-    def ubah_data(self, nama: str, kat: KategoriAlat) -> None:
+    def ubah_data(self, nama: str, kat: Kategori) -> None:
         """+ ubah_data(nama, kat): Memperbarui nama dan kategori alat."""
         self._nama_alat = nama
         self._kategori = kat
@@ -79,6 +79,6 @@ class Alat:
         else:
             status_teks = "Tersedia"
 
-        kat_val = self._kategori.value if isinstance(self._kategori, KategoriAlat) else str(self._kategori)
+        kat_val = self._kategori.value if isinstance(self._kategori, Kategori) else str(self._kategori)
         kon_val = self._kondisi.value if isinstance(self._kondisi, KondisiAlat) else str(self._kondisi)
         return f"[{self._kode_alat}] {self._nama_alat} | Kategori: {kat_val} | Kondisi: {kon_val} | Status: {status_teks}"
